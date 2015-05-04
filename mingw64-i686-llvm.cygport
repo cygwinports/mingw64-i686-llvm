@@ -45,12 +45,12 @@ src_compile() {
 		--enable-libffi --enable-shared --disable-embed-stdcxx \
 		--disable-polly --disable-libcpp --enable-bindings=none
 
-	cygmake libs-only
+	cygmake libs-only NM_PATH=${NM}
 }
 
 src_install() {
 	cd ${B}
-	cygmake install-libs DESTDIR=${D} ENABLE_DOCS=0
+	cygmake install-libs DESTDIR=${D} ENABLE_DOCS=0 KEEP_SYMBOLS=1
 
 	mv -f ${D}${CROSS_BINDIR}/llvm-config{-host,}.exe
 	dobin BuildTools/Release/bin/llvm-tblgen.exe
